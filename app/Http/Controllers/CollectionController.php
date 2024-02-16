@@ -14,8 +14,17 @@ class CollectionController extends Controller
      */
     public function index(Request $request)
     {
-        $collections = Collection::all();
-        return View::make('collection.index')->with('collections', $collections);
+        //If the $request->trashed then show only the trashed collections
+        if ($request->trashed)
+        {
+            $collections = Collection::onlyTrashed()->get();
+            return view('collection.index', ['collections' => $collections, 'trashed' => true]);
+        }
+        else
+        {
+            $collections = Collection::all();
+            return view('collection.index', ['collections' => $collections, 'trashed' => false]);
+        }
     }
 
     /**
@@ -74,7 +83,7 @@ class CollectionController extends Controller
      */
     public function destroy(string $id)
     {
-        $collection = Collection::find($id);
+        $collection = Collection::withTrashed()->find($id);
         if ($collection->trashed())
         {
             $collection->forceDelete();
@@ -83,7 +92,7 @@ class CollectionController extends Controller
         else
         {
             $collection->delete();
-            return redirect()->route('collection.index')->with('message', 'Collection deleted.');
+            return redirect()->route('collection.index')->with('message', 'Collection moved to trash.');
         }
     }
 }

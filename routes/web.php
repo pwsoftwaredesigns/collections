@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Counter;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\FieldController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,4 @@ Route::get('/',function(){
 });
 Route::resource('collection', CollectionController::class);
 Route::resource('collection/{collection_id}/item', ItemController::class);
+Route::resource('collection/{collection_id}/field', FieldController::class);

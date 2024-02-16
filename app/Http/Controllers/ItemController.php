@@ -19,7 +19,7 @@ class ItemController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create($collection_id)
+    public function create(string $collection_id)
     {
         $item = Item::create([
             'collection_id' => $collection_id

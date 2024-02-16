@@ -19,12 +19,12 @@ class Item extends Model
 
     public function collection()
     {
-        return $this->belongsTo(Collection::class);
+        return $this->belongsTo(Collection::class, 'collection_id', 'key');
     }
 
     public function fields()
     {
-        //return $this->hasMany(Field::class);
+        return $this->hasMany(ItemField::class);
     }
 
     public static function boot()

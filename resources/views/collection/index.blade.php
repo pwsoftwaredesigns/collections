@@ -4,10 +4,10 @@
     <!-- Create a bootstrap grid of cards for each collection -->
     <div class="row row-cols-1 row-cols-md-2">
         @if (count($collections) == 0)
-            <div class="card">
+            <div class="card m-4">
                 <div class="card-body">
                     <h5 class=" card-title">No collections found</h5>
-                    <p class="card-text">You have not created any collections yet.</p>
+                    <p class="card-text">{{ ($trashed) ? 'Your trash is empty' : 'You have not created any collections yet' }}</p>
                 </div>
             </div>
         @endif
@@ -22,11 +22,13 @@
                     <div class="card-body">
                         <p class="card-text">{{ $value->description }}</p>
                         <div class="d-flex align-items-center">
-                            <a href="{{ URL::to('collection/' . $value->key) }}" class="btn btn-primary mr-2">View Collection</a>
+                            @if (!$trashed)
+                                <a href="{{ URL::to('collection/' . $value->key) }}" class="btn btn-primary mr-2">View Collection</a>
+                            @endif
                             <form action="{{ url('collection', $value->key) }}" method="post" class="form-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-small btn-danger" type="submit" title="Move this collection to the trash"><i class="bi-trash"></i></button>
+                                <button class="btn btn-small btn-danger" type="submit" title="{{ ($trashed) ? 'Permanently delete this collection' : 'Move this collection to the trash' }}"><i class="bi-trash"></i></button>
                             </form>
                         </div>
                     </div>
