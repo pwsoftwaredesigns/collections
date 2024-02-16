@@ -1,35 +1,24 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends('layout.main')
 
-<head>
-    <title>{{ $collection->key }}</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-
-<body>
-    <div class="container">
-
-        <nav class="navbar navbar-inverse">
-            <div class="navbar-header">
-                <h1>{{ $collection->key }}</h1>
-            </div>
-            <ul class="nav navbar-nav">
-                <li><a href="{{ URL::to('collection') }}">My Collections</a></li>
-                <li><a href="{{ URL::to('collection/create') }}">Create a Collection</a>
-            </ul>
-        </nav>
-
-        <!-- will be used to show any messages -->
-        @if (Session::has('message'))
-            <div class="alert alert-info">{{ Session::get('message') }}</div>
-        @endif
-
+@section('content')
+    <div class="container-fluid p-4">
         <table class="table table-striped table-bordered">
-            
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($items as $id => $item)
+                    <tr>
+                    <td>{{ $item->id }}</td>
+                    <td>{{ $item->created_at }}</td>
+                    <td>{{ $item->updated_at }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
         </table>
-
     </div>
-</body>
-
-</html>
+@endsection

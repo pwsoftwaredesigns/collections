@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Counter;
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\ItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +16,8 @@ use App\Http\Controllers\CollectionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/',function(){
+    return redirect('/collection');
 });
-
 Route::resource('collection', CollectionController::class);
-
-Route::get('/counter', Counter::class);
+Route::resource('collection/{collection_id}/item', ItemController::class);
