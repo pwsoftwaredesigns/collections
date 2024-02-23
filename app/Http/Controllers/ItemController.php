@@ -37,9 +37,10 @@ class ItemController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $collection_id, string $item_id)
     {
-        //
+        $item = Item::findOrFail(['collection_id' => $collection_id, 'id' => $item_id]);
+        return view('item.show', ['item' => $item]);
     }
 
     /**

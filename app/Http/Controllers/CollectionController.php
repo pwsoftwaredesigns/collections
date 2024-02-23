@@ -53,13 +53,15 @@ class CollectionController extends Controller
 
     /**
      * Display the specified resource.
+     * Display the items in the collection
      */
     public function show(string $id)
     {
         $collection = Collection::find($id);
         $items = $collection->items()->get();
+        $fields = $collection->fields()->get();
 
-        return view('collection.show', ['collection' => $collection, 'items' => $items]);
+        return view('collection.show', ['collection' => $collection, 'items' => $items, 'fields' => $fields]);
     }
 
     /**

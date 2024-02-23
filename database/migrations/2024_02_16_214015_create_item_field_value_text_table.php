@@ -11,9 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('item_field_value_text', function (Blueprint $table) {
+        Schema::create('item_field_value_text', function (Blueprint $table){
             $table->id();
+            $table->string("collection_id",8);
+            $table->unsignedBigInteger('item_id');
+            $table->string('field_id');
             $table->text('value');
+
+            $table->foreign('collection_id')->references('key')->on('collections')->onDelete("cascade");
+            $table->foreign(['collection_id','item_id'])->references(['collection_id','id'])->on('items')->onDelete("cascade");
+            $table->foreign(['collection_id','field_id'])->references(['collection_id','name'])->on('fields')->onDelete("cascade");
         });
     }
 

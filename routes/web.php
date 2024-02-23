@@ -22,4 +22,7 @@ Route::get('/',function(){
 });
 Route::resource('collection', CollectionController::class);
 Route::resource('collection/{collection_id}/item', ItemController::class);
+Route::get('collection/{collection_id}/item/{item_id}', 'FieldController@show')->name('item.show');
+
 Route::resource('collection/{collection_id}/field', FieldController::class);
+Route::get('collection/{collection_id}/field/{field_id}/edit', 'FieldController@edit')->name('field.edit');
