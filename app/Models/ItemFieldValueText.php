@@ -12,6 +12,7 @@ class ItemFieldValueText extends Model
     use Compoships;
     protected $table = 'item_field_value_text';
     protected $fillable = ['collection_id', 'item_id', 'field_id', 'value'];
+    public $timestamps = false;
 
     public function collection()
     {

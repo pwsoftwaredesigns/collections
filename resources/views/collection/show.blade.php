@@ -15,7 +15,7 @@
             </thead>
             <tbody>
                 @foreach ($items as $id => $item)
-                    <tr onclick="window.location='{{ route('item.show', ['collection_id' => $collection->key, 'item' => $item->id]) }}';" style="cursor: pointer;">
+                    <tr onclick="window.location='{{ route('item.show', ['collection_id' => $collection->key, 'item_id' => $item->id]) }}';" style="cursor: pointer;">
                     <td>{{ $item->id }}</td>
                     <!-- <td>{{ $item->created_at }}</td> -->
                     <!--<td>{{ $item->updated_at }}</td> -->

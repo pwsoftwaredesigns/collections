@@ -22,6 +22,11 @@ class Item extends Model
         'collection_id'
     ];
 
+    public function fullId()
+    {
+        return $this->collection_id . '-' . $this->id;
+    }
+
     public function collection()
     {
         return $this->belongsTo(Collection::class, 'collection_id', 'key');

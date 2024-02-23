@@ -40,7 +40,7 @@ class FieldController extends Controller
        
         $field = Field::create($request->all());
 
-        return redirect()->route('field.index', ['collection_id' => $request->collection_id])->with('message', 'Field ' + $field->name + ' created successfully.');
+        return redirect()->route('field.index', ['collection_id' => $request->collection_id])->with('message', 'Field ' . $field->fullName() . ' created successfully.');
     }
 
     /**

@@ -20,6 +20,11 @@ class Field extends Model
     protected $primaryKey = ['collection_id'=>'collection_id', 'name'=>'name'];
     protected $fillable = ['collection_id', 'name', 'type', 'description'];
 
+    public function fullName()
+    {
+        return $this->collection_id . '.' . $this->name;
+    }
+
     public function collection()
     {
         return $this->belongsTo(Collection::class, 'collection_id', 'key');
