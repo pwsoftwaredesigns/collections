@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <title>Create a Collection</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-  <div class="container mt-4">
+@extends('layout.app')
+
+@section('title', 'Create a Collection')
+
+@section('content')
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -21,7 +17,7 @@
       Create a Collection
     </div>
     <div class="card-body">
-      <form name="create-collection-form" id="create-collection-form" method="post" action="{{url('collection')}}">
+      <form name="create-collection-form" id="create-collection-form" method="post" action="{{ route('collections.index') }}">
        @csrf
         <div class="form-group">
           <label for="key">Key</label>
@@ -39,6 +35,4 @@
       </form>
     </div>
   </div>
-</div> 
-</body>
-</html>
+@endsection

@@ -1,8 +1,8 @@
-@extends('layout.main')
+@extends('layout.app')
 
 @section('content')
     <div class="container-fluid p-4">
-        <form action="{{ route('item.store', ['collection_id' =>  $collection->key]) }}" method="POST">
+        <form action="{{ route('items.store', ['collection' =>  $collection->key]) }}" method="POST">
             @csrf
             <input type="hidden" name="collection_id" value="{{ $collection->key }}">
 

@@ -1,4 +1,13 @@
-@extends('layout.main')
+@extends('layout.app')
+
+@section('navbar.buttons')
+    @parent
+    <form action="{{ route('items.destroy', ['collection' => $collection->key, 'item' => $item->id]) }}" method="post" class="form-inline d-inline">
+        @csrf
+        @method('DELETE')
+        <button class="btn btn-small btn-danger" type="submit" title="Delete Item"><i class="bi-trash"></i></button>
+    </form>
+@endsection
 
 @section('content')
     <div class="container-fluid p-4">

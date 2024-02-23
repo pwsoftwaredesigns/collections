@@ -1,29 +1,29 @@
-@extends('layout.main')
+@extends('layout.app')
 
 @section('content')
     <div class="card">
         <div class="card-header text-center font-weight-bold">
-            Create a field for the collection "{{ $collection->name }}"
+            Edit field "{{ $field->name }}" for the collection {{ $collection->name }}"
         </div>
         <div class="card-body">
-            <form name="create-field-form" id="create-field-form" method="post" action="{{ url('collection/'.$collection->key.'/field') }}">
+            <form name="create-field-form" id="create-field-form" action="{{ route('fields.index', ['collection'=>$collection->key]) }}">
                 @csrf
+                @method('PUT')
                 <input type="hidden" name="collection_id" value="{{ $collection->key }}">
 
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="name" name="name" class="form-control" required="">
+                    <input type="text" id="name" name="name" class="form-control" required="" value="{{ $field->name }}" readonly >
                 </div>
 
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <input type="text" id="description" name="description" class="form-control" required="">
+                    <input type="text" id="description" name="description" class="form-control" required="" value="{{ $field->description }}">
                 </div>
 
                 <div class="form-group">
                     <label for="type">Type</label>
-                    <select wire:model="type" id="type" name="type" class="form-control">
-                        <option value="" disabled selected="selected">Select an type...</option>
+                    <select wire:model="type" id="type" name="type" class="form-control" value="{{ $field->type }}" readonly>
                         <option value="shorttext">Short Text</option>
                         <option value="longtext">Long Text</option>
                         <option value="number">Number</option>
@@ -32,7 +32,7 @@
 
                 <!-- User Livewire to display optional properties based on the selected type -->
 
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>
     </div>

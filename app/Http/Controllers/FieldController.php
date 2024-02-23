@@ -15,7 +15,7 @@ class FieldController extends Controller
     {
         $collection = Collection::find($collection_id);
         $fields = $collection->fields()->get();
-        return view('field.index', ['fields' => $fields, 'collection' => $collection]);
+        return view('fields.index', ['fields' => $fields, 'collection' => $collection]);
     }
 
     /**
@@ -24,7 +24,7 @@ class FieldController extends Controller
     public function create(string $collection_id)
     {
         $collection = Collection::find($collection_id);
-        return view('field.create', ['collection' => $collection]);
+        return view('fields.create', ['collection' => $collection]);
     }
 
     /**
@@ -40,7 +40,7 @@ class FieldController extends Controller
        
         $field = Field::create($request->all());
 
-        return redirect()->route('field.index', ['collection_id' => $request->collection_id])->with('message', 'Field ' . $field->fullName() . ' created successfully.');
+        return redirect()->route('fields.index', ['collection' => $request->collection_id])->with('message', 'Field ' . $field->fullName() . ' created successfully.');
     }
 
     /**
@@ -64,7 +64,7 @@ class FieldController extends Controller
     {
         $field = Field::findOrFail(["collection_id" => $collection_id, "name" => $field_id]);
         $collection = $field->collection()->get()->first();
-        return view('field.edit', ['field' => $field, 'collection' => $collection]);
+        return view('fields.edit', ['field' => $field, 'collection' => $collection]);
     }
 
     /**
@@ -72,7 +72,7 @@ class FieldController extends Controller
      */
     public function update(Request $request, string $field_id)
     {
-        return redirect()->route('field.index', ['collection_id' => $request->collection_id])->with('message', 'Field ' + $field_id + ' updated successfully.');
+        return redirect()->route('fields.index', ['collection' => $request->collection_id])->with('message', 'Field ' + $field_id + ' updated successfully.');
     }
 
     /**
@@ -83,18 +83,18 @@ class FieldController extends Controller
         $field = Field::find(["collection_id" => $collection_id, "name" => $field_id]);
         if (!$field)
         {
-            return redirect()->route('field.index', ['collection_id' => $collection_id])->with('message', 'Field not found.');
+            return redirect()->route('fields.index', ['collection' => $collection_id])->with('message', 'Field not found.');
         }
 
         if ($field->trashed())
         {
             $field->forceDelete();
-            return redirect()->route('field.index', ['collection_id' => $collection_id])->with('message', 'Field permanently deleted.');
+            return redirect()->route('fields.index', ['collection' => $collection_id])->with('message', 'Field permanently deleted.');
         }
         else
         {
             $field->delete();
-            return redirect()->route('field.index', ['collection_id' => $collection_id])->with('message', 'Field moved to trash.');
+            return redirect()->route('fields.index', ['collection' => $collection_id])->with('message', 'Field moved to trash.');
         }
     }
 }

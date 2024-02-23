@@ -1,4 +1,6 @@
-@extends('layout.main')
+@extends('layout.app')
+
+@section('title', 'My Collections')
 
 @section('content')
     <!-- Create a bootstrap grid of cards for each collection -->
@@ -23,9 +25,10 @@
                         <p class="card-text">{{ $value->description }}</p>
                         <div class="d-flex align-items-center">
                             @if (!$trashed)
-                                <a href="{{ URL::to('collection/' . $value->key) }}" class="btn btn-primary mr-2">View Collection</a>
+                                <a href="{{ route('collections.show', ['collection' => $value->key]) }}" class="btn btn-primary mr-2">View Collection</a>
                             @endif
-                            <form action="{{ url('collection', $value->key) }}" method="post" class="form-inline">
+                            <a href="{{ route('fields.index', ['collection' => $value->key]) }}" class="btn btn-secondary mr-2"><i class="bi-list-task"></i> Fields</a>
+                            <form action="{{ route('collections.destroy', ['collection' => $value->key]) }}" method="post" class="form-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-small btn-danger" type="submit" title="{{ ($trashed) ? 'Permanently delete this collection' : 'Move this collection to the trash' }}"><i class="bi-trash"></i></button>

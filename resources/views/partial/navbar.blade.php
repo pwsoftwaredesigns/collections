@@ -4,7 +4,9 @@
         {{ config("app.name") }}
     </a>
     <div class="ml-auto">
-        <a href="{{ URL::to('collection') }}" title="My Collections" class=""><i class="btn btn-secondary bi-collection"></i></a>
-        <a href="{{ URL::to('collection/create') }}" title="Create Collection" class=""><i class="btn btn-secondary bi-plus-circle"></i></a>
+        @section('navbar.buttons')
+            <a class="btn btn-secondary" href="{{ route('collections.index') }}" title="My Collections" class=""><i class="bi-collection"></i> My Collections</a>
+            <a class="btn btn-secondary" href="{{ route('collections.create') }}" title="Create Collection" class=""><i class=" bi-plus-circle"></i> Collection</a>
+        @show
     </div>
 </nav>

@@ -1,4 +1,11 @@
-@extends('layout.main')
+@extends('layout.app')
+
+@section('title', $collection->name)
+
+@section('navbar.buttons')
+    @parent
+    <a class="btn btn-secondary" href="{{ route('items.create', ['collection' => $collection->key]) }}" title="Create Item" class=""><i class="bi-plus-circle"></i> Item</a>
+@endsection
 
 @section('content')
     <div class="container-fluid p-4">
@@ -6,8 +13,6 @@
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
-                    <!--<th>Created At</th>-->
-                    <!--<th>Updated At</th>-->
                     @foreach ($fields as $field)
                         <th>{{ $field->name }}</th>
                     @endforeach
@@ -15,10 +20,8 @@
             </thead>
             <tbody>
                 @foreach ($items as $id => $item)
-                    <tr onclick="window.location='{{ route('item.show', ['collection_id' => $collection->key, 'item_id' => $item->id]) }}';" style="cursor: pointer;">
-                    <td>{{ $item->id }}</td>
-                    <!-- <td>{{ $item->created_at }}</td> -->
-                    <!--<td>{{ $item->updated_at }}</td> -->
+                    <tr onclick="window.location='{{ route('items.show', ['collection' => $collection->key, 'item' => $item->id]) }}';" style="cursor: pointer;">
+                    <td>{{ $item->fullId() }}</td>
                     @foreach ($fields as $field)
                         <td>
                             @php

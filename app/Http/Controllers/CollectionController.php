@@ -18,12 +18,12 @@ class CollectionController extends Controller
         if ($request->trashed)
         {
             $collections = Collection::onlyTrashed()->get();
-            return view('collection.index', ['collections' => $collections, 'trashed' => true]);
+            return view('collections.index', ['collections' => $collections, 'trashed' => true]);
         }
         else
         {
             $collections = Collection::all();
-            return view('collection.index', ['collections' => $collections, 'trashed' => false]);
+            return view('collections.index', ['collections' => $collections, 'trashed' => false]);
         }
     }
 
@@ -32,7 +32,7 @@ class CollectionController extends Controller
      */
     public function create()
     {
-        return view('collection.create');
+        return view('collections.create');
     }
 
     /**
@@ -48,7 +48,7 @@ class CollectionController extends Controller
        
         Collection::create($request->all());
 
-        return redirect()->route('collection.index')->with('message', 'Collection created successfully.');
+        return redirect()->route('collections.index')->with('message', 'Collection created successfully.');
     }
 
     /**
@@ -57,11 +57,7 @@ class CollectionController extends Controller
      */
     public function show(string $id)
     {
-        $collection = Collection::find($id);
-        $items = $collection->items()->get();
-        $fields = $collection->fields()->get();
-
-        return view('collection.show', ['collection' => $collection, 'items' => $items, 'fields' => $fields]);
+        return redirect()->route('items.index', ['collection' => $id]);
     }
 
     /**
@@ -89,12 +85,12 @@ class CollectionController extends Controller
         if ($collection->trashed())
         {
             $collection->forceDelete();
-            return redirect()->route('collection.index')->with('message', 'Collection permanently deleted.');
+            return redirect()->route('collections.index')->with('message', 'Collection permanently deleted.');
         }
         else
         {
             $collection->delete();
-            return redirect()->route('collection.index')->with('message', 'Collection moved to trash.');
+            return redirect()->route('collections.index')->with('message', 'Collection moved to trash.');
         }
     }
 }

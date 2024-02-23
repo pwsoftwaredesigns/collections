@@ -18,11 +18,8 @@ use App\Http\Controllers\FieldController;
 */
 
 Route::get('/',function(){
-    return redirect('/collection');
+    return redirect('/collections');
 });
-Route::resource('collection', CollectionController::class);
-Route::resource('collection/{collection_id}/item', ItemController::class);
-Route::get('collection/{collection_id}/item/{item_id}', 'FieldController@show')->name('item.show');
-
-Route::resource('collection/{collection_id}/field', FieldController::class);
-Route::get('collection/{collection_id}/field/{field_id}/edit', 'FieldController@edit')->name('field.edit');
+Route::resource('collections', CollectionController::class);
+Route::resource('collections/{collection}/items', ItemController::class);
+Route::resource('collections/{collection}/fields', FieldController::class);
